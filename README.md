@@ -9,3 +9,6 @@ Analytics and data science projects spanning financial modelling, NLP, and time 
 | [Portfolio Optimization](./Portfolio%20Optimization/) | Monte Carlo, Markowitz, Sharpe Ratio | ✅ Complete |
 | [Sentiment Analysis — Hotel Reviews](./SentimentAnalysis/) | NLTK, TextBlob, Scikit-learn | ✅ Complete |
 | [Time Series — Marine Fish Sales](./TimeSeries_FishSales/) | ARIMA, statsmodels | ✅ Complete |
+
+**Featured Project:** The Energy Stock Price Forecasting project (LSTM vs ARIMA), developed as part of my research work at IIM Ahmedabad, is hosted in a dedicated repository with complete documentation, source code, and results: [Model-for-Price-Discovery-of-Energy-Companies-Stocks](https://github.com/DivyaKotia/Model-for-Price-Discovery-of-Energy-Companies-Stocks).
+
