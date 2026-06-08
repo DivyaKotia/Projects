@@ -1,4 +1,3 @@
-```markdown
 # Projects — Divyakumar Kotia
 
 Analytics and data science projects spanning financial modelling, NLP, and time series.
@@ -10,4 +9,3 @@ Analytics and data science projects spanning financial modelling, NLP, and time 
 | [Portfolio Optimization](./Portfolio%20Optimization/) | Monte Carlo, Markowitz, Sharpe Ratio | ✅ Complete |
 | [Sentiment Analysis — Hotel Reviews](./SentimentAnalysis/) | NLTK, TextBlob, Scikit-learn | ✅ Complete |
 | [Time Series — Marine Fish Sales](./TimeSeries_FishSales/) | ARIMA, statsmodels | ✅ Complete |
-```
