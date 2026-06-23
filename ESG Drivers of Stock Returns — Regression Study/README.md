@@ -75,4 +75,4 @@ MSc. Project_Forecasting and ESG Analysis/
 
 ## Context
 
-Research conducted at IIM Ahmedabad under institutional access to LSEG Workspace and Bloomberg Terminal. Part of M.Sc. Big Data Analytics thesis work.
+Research conducted at IIM Ahmedabad under institutional access to LSEG Workspace and Bloomberg Terminal.
