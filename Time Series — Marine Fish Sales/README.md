@@ -9,32 +9,34 @@ This project applies classical time series methods to forecast monthly marine fi
 ---
 
 ## Methodology
+**Step 1 — Digitization & Aggregation**  
+Handwritten sales data written in regional language was first digitized and aggregated into monthly sales data.
 
-**Step 1 — Data Loading & Visualisation**  
+**Step 2 — Data Loading & Visualisation**  
 Monthly sales data loaded with `Month_Year` as the time index. Initial time plot to identify trend, seasonality, and anomalies.
 
-**Step 2 — Cleaning**  
+**Step 3 — Cleaning**  
 Missing values dropped. Data re-plotted post-cleaning to confirm integrity.
 
-**Step 3 — Stationarity Testing**  
+**Step 4 — Stationarity Testing**  
 ADF (Augmented Dickey-Fuller) test applied. Differencing applied where required to achieve stationarity.
 
-**Step 4 — ACF / PACF Analysis**  
+**Step 5 — ACF / PACF Analysis**  
 Autocorrelation and Partial Autocorrelation functions plotted to guide ARIMA order selection (p, d, q). Oscillating ACF pattern suggested seasonal effects, though AR/MA structure could not be confidently finalised from ACF/PACF alone — motivating the move to more advanced models below.
 
-**Step 5 — Seasonal Index & Trend Baseline**  
+**Step 7 — Seasonal Index & Trend Baseline**  
 Monthly seasonal indices computed directly from the data: **October showed the largest seasonal increase (+52,642)**, **February the largest seasonal decrease (−90,807)** — confirming a strong, recurring seasonal cycle. A least-squares linear trend line fit to the raw series returned **R² = 0.369**: trend alone explains only 37% of the variation in sales, leaving the bulk of the movement to seasonality and other drivers. This result is the direct motivation for moving to a seasonal model (SARIMA) rather than relying on trend extrapolation.
 
-**Step 6 — ARIMA Modelling**  
+**Step 8 — ARIMA Modelling**  
 Baseline ARIMA(1,1,1) fitted on training split. Residual diagnostics performed to validate white-noise assumption.
 
-**Step 7 — Seasonal Decomposition & SARIMA**  
+**Step 9 — Seasonal Decomposition & SARIMA**  
 Multiplicative seasonality identified in the sales pattern via decomposition (`yₜ = Tₜ + Sₜ + Cₜ + eₜ`). SARIMA(2,1,3)(0,1,1,12) fitted to capture the seasonal component the baseline ARIMA and the linear trend model both missed.
 
-**Step 8 — Train-Test Evaluation**  
+**Step 10 — Train-Test Evaluation**  
 Forecasts generated on held-out test set. RMSE, MAE, MAPE, and R² computed to assess forecast accuracy (full comparison below).
 
-**Step 9 — Forward Forecast**  
+**Step 11 — Forward Forecast**  
 Best model used to produce multi-step ahead forecasts for planning horizon.
 
 ---
