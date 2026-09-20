@@ -1,4 +1,4 @@
-# ESG Drivers of Stock Returns — Regression Study
+# ESG Drivers of Energy Companies’ Revenue - Regression Analysis
 
 > **Quantifying which ESG variables significantly explain company Revenue, using regression on 600+ ESG parameters across 21 Indian energy sector companies**
 
