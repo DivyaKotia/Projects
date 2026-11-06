@@ -1,4 +1,4 @@
-# Portfolio Optimization — Markowitz Model & Monte Carlo Simulation
+# Portfolio Optimization - Markowitz Model & Monte Carlo Simulation
 
 > **Constructing the efficient frontier for a 5-asset Indian portfolio using Modern Portfolio Theory and 70,000-scenario Monte Carlo simulation**
 
