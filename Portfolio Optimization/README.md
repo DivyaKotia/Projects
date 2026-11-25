@@ -180,7 +180,19 @@ The accompanying visualisations provide further insights into historical asset p
 
 ## Repository Structure
 
+## Repository Structure
+
 ```text
+Portfolio Optimization/
+│
 ├── Portfolio_Optimization.ipynb
+│   └── Python implementation of MPT using Monte Carlo simulation
+│
+├── Portfolio Optimization.xlsx
+│   └── Portfolio optimisation using Excel
+│
+├── PortfolioOptimization_UsingExcel.pptx
+│   └── Presentation explaining the Excel-based implementation
+│
 └── README.md
 ```
