@@ -1,46 +1,98 @@
-# Portfolio Optimization - Markowitz Model & Monte Carlo Simulation
+# Portfolio Optimization – Markowitz Model & Monte Carlo Simulation
 
-> **Constructing the efficient frontier for a 5-asset Indian portfolio using Modern Portfolio Theory and 70,000-scenario Monte Carlo simulation**
+> **Applying Modern Portfolio Theory to a diversified 5-asset Indian portfolio using 70,000 Monte Carlo simulations to explore optimal asset allocation and risk-adjusted returns.**
 
 ## Overview
 
-This project implements Modern Portfolio Theory (MPT) to determine how capital should be allocated across five assets to maximise risk-adjusted return. Rather than predicting individual stock prices, the goal is allocation: generating thousands of candidate portfolios, evaluating each on return, volatility, and Sharpe Ratio, then selecting the Maximum Sharpe and Minimum Volatility portfolios from the resulting efficient frontier.
+This project implements **Modern Portfolio Theory (MPT)** to explore how capital can be allocated across five financial assets to achieve different risk-return objectives.
+
+Rather than predicting individual asset prices, the focus is on portfolio construction: generating 70,000 candidate portfolios, evaluating each based on annualised return, volatility, and Sharpe Ratio, and identifying two portfolios:
+
+- **Maximum Sharpe Ratio Portfolio:** The portfolio offering the highest risk-adjusted return.
+- **Minimum Volatility Portfolio:** The portfolio with the lowest annualised volatility.
+
+The implementation also compares these optimised portfolios against an equally weighted portfolio to understand how asset allocation influences overall portfolio performance.
 
 ---
 
 ## Assets
 
-| Asset | Sector |
-|---|---|
-| RELIANCE.NS | Energy / Conglomerate |
-| HDFCBANK.NS | Banking |
-| TCS.NS | Information Technology |
-| GTLINFRA.NS | Telecom Infrastructure |
-| GOLDCASE.NS | Gold ETF |
+| Asset | Ticker | Sector / Category |
+|---|---|---|
+| Reliance Industries | RELIANCE.NS | Energy / Conglomerate |
+| HDFC Bank | HDFCBANK.NS | Banking |
+| Tata Consultancy Services | TCS.NS | Information Technology |
+| GTL Infrastructure | GTLINFRA.NS | Telecom Infrastructure |
+| Nippon India ETF Gold BeES | GOLDBEES.NS | Gold ETF |
 
-Deliberately diversified across equity, banking, technology, infrastructure, and a commodity hedge (gold).
+The portfolio combines equities from different sectors with gold exposure, providing an opportunity to examine the impact of diversification across different asset classes and market segments.
 
 ---
 
 ## Methodology
 
-**Step 1 — Data Collection**  
-Adjusted Close prices downloaded via `yfinance` (23 June 2021 → present). Adjusted Close used specifically because it accounts for splits and dividends, giving a true measure of investment performance rather than raw price movement.
+**Step 1 — Historical Data Collection**
 
-**Step 2 — Return Estimation**  
-Daily log returns computed: `R = ln(1 + pct_change)`. Log returns preferred over simple returns for better statistical behaviour and easier time-aggregation. Annualised using 248 trading days/year.
+Historical adjusted closing prices are downloaded using `yfinance`, starting from **1 January 2021** up to the current date.
 
-**Step 3 — Initial Equal-Weight Portfolio**  
-Baseline portfolio with 20% allocated to each of the 5 assets, computed via standard portfolio return (`Σwᵢrᵢ`) and volatility (`√(WᵀCW)`) formulas, where C is the return covariance matrix.
+Adjusted closing prices are used to account for corporate actions such as stock splits and dividends, providing a more representative basis for analysing historical investment performance.
 
-**Step 4 — Monte Carlo Simulation**  
-**70,000 randomly weighted portfolios** generated, each respecting two constraints: no single asset above 50% allocation, and weights summing to 1. For each portfolio: annual return, annual volatility, and Sharpe Ratio computed using a **7% risk-free rate**.
+**Step 2 — Cumulative Returns and Daily Return Calculation**
 
-**Step 5 — Portfolio Selection**  
-From the 70,000 simulated portfolios, two are extracted: the Maximum Sharpe Ratio portfolio (best risk-adjusted return) and the Minimum Volatility portfolio (lowest risk, regardless of return).
+The historical cumulative returns of the five assets are calculated and visualised to compare their performance over the selected period.
 
-**Step 6 — Efficient Frontier Visualisation**  
-All 70,000 portfolios plotted (volatility on x-axis, return on y-axis, Sharpe Ratio as colour), with the two selected portfolios marked.
+Daily simple returns are then calculated using:
+
+`R = data.pct_change()`
+
+Simple returns are used instead of log returns because portfolio returns can be expressed as the weighted sum of individual asset returns.
+
+**Step 3 — Equal-Weight Portfolio**
+
+An equally weighted portfolio is established as a baseline, with 20% of the total investment allocated to each asset.
+
+Portfolio return is calculated using the weighted average of individual asset returns:
+
+`Portfolio Return = Σ(wᵢ × Rᵢ)`
+
+Portfolio volatility is calculated using the covariance matrix:
+
+`Portfolio Volatility = √(Wᵀ × Σ × W)`
+
+Annualisation is based on 248 trading days per year:
+
+- Annualised return = Average daily return × 248
+- Annualised volatility = Daily volatility × √248
+
+**Step 4 — Monte Carlo Simulation**
+
+**70,000 randomly weighted portfolios** are generated using Monte Carlo simulation.
+
+Each portfolio follows two allocation constraints:
+
+- No individual asset can have a weight greater than 50%.
+- The combined portfolio weights must sum to 100%.
+
+For every simulated portfolio, the annualised return, annualised volatility, and Sharpe Ratio are calculated.
+
+The risk-free rate is assumed to be **7%**.
+
+**Step 5 — Portfolio Selection**
+
+The simulated portfolios are evaluated to identify:
+
+- **Maximum Sharpe Ratio:** The portfolio with the highest excess return per unit of volatility.
+- **Minimum Volatility:** The portfolio with the lowest annualised standard deviation.
+
+**Step 6 — Visualisation and Comparison**
+
+The analysis includes:
+
+- Historical cumulative returns of the five assets.
+- Monte Carlo simulation scatter plot showing portfolio return against volatility, with Sharpe Ratio represented through colour.
+- Annualised return comparison across the three portfolios.
+- Annualised volatility comparison across the three portfolios.
+- Asset allocation comparison between the two optimised portfolios.
 
 ---
 
@@ -48,43 +100,87 @@ All 70,000 portfolios plotted (volatility on x-axis, return on y-axis, Sharpe Ra
 
 | Category | Tools |
 |---|---|
-| Language | Python |
-| Libraries | pandas, NumPy, Matplotlib, Seaborn |
-| Data | yfinance |
-| Method | Monte Carlo simulation, Modern Portfolio Theory |
-
----
-
-## File Structure
-
-```
-├── Portfolio_Optimization.ipynb    # Full Monte Carlo MPT implementation
-└── README.md
-```
+| Programming Language | Python |
+| Libraries | pandas, NumPy, Matplotlib |
+| Financial Data | yfinance |
+| Methodology | Modern Portfolio Theory, Monte Carlo Simulation |
+| Key Metrics | Portfolio Return, Covariance, Volatility, Sharpe Ratio |
 
 ---
 
 ## Results
 
+The simulation produced the following results:
+
 | Portfolio | Annual Return | Annual Volatility | Sharpe Ratio |
-|---|---|---|---|
-| **Maximum Sharpe Ratio** | 18.8% | 15.8% | 0.742 |
-| **Minimum Volatility** | 3.5% | 13.3% | **−0.260** |
+|---|---:|---:|---:|
+| **Equal-weight** | 11.06% | 16.77% | 0.242 |
+| **Minimum Volatility** | 10.50% | 12.00% | 0.290 |
+| **Maximum Sharpe** | 13.90% | 14.40% | 0.476 |
 
-**Maximum Sharpe portfolio** allocated heavily toward Gold ETF (47.9%) and HDFC Bank (44.7%), with Reliance, TCS, and GTLINFRA together contributing under 8%. The optimiser identified Gold + Banking as the most efficient combination over this period — TCS and GTLINFRA added volatility without proportionate return, so the optimisation pushed their weights toward zero.
+*Note: Returns and volatility are annualised. The Sharpe Ratio is calculated using an assumed risk-free rate of 7%.*
 
-**Minimum Volatility portfolio** achieved the lowest possible risk (13.3%) through more balanced diversification (Gold 27.7%, TCS 25.9%, HDFC Bank 24.8%, Reliance 19.7%, GTLINFRA 1.9%) — but its 3.5% return sits *below* the 7% risk-free rate, producing a **negative Sharpe Ratio**. This is reported as-is rather than smoothed over: the safest portfolio in this universe was not an attractive one on a risk-adjusted basis over the study period. It illustrates a real finding of Modern Portfolio Theory — minimising volatility and maximising risk-adjusted return are not the same objective, and chasing the former without checking the latter can produce an allocation that underperforms simply holding risk-free assets.
+### Optimal Portfolio Allocations
+
+| Asset | Maximum Sharpe | Minimum Volatility |
+|---|---:|---:|
+| Gold BeES | 49.3% | 44.7% |
+| Reliance Industries | 32.1% | 12.9% |
+| GTL Infrastructure | 11.1% | 2.3% |
+| HDFC Bank | 7.4% | 17.5% |
+| TCS | 0.0% | 22.6% |
+
+### Interpretation
+
+The **Maximum Sharpe Ratio portfolio** achieved the highest annualised return of 13.90%, with an annualised volatility of 14.40%.
+
+The **Minimum Volatility portfolio** achieved the lowest annualised volatility of 12.00%, with an annualised return of 10.50%.
+
+Compared with the equally weighted portfolio, both optimised portfolios achieved lower historical volatility. However, only the Maximum Sharpe portfolio generated a higher annualised return.
+
+These results demonstrate an important principle of Modern Portfolio Theory: minimising portfolio risk and maximising risk-adjusted return are two different optimisation objectives, and they can produce significantly different asset allocations.
 
 ---
 
 ## Key Findings
 
-1. Portfolio allocation had a greater impact on outcomes than individual stock selection
-2. The optimiser converged on a Gold + Banking combination for risk-adjusted return — not an intuitive pairing, but one the data supported over this window
-3. Minimising volatility alone, without reference to the risk-free rate, can produce a portfolio that's "safe" but financially unattractive (negative Sharpe)
-4. Monte Carlo simulation at scale (70,000 portfolios) made it possible to map the full risk-return tradeoff space rather than relying on a handful of manually chosen allocations
+1. **Asset allocation matters:** Different combinations of weights across the same five assets produce different portfolio risk-return profiles.
 
+2. **Risk and return involve trade-offs:** The Maximum Sharpe portfolio achieved a higher return than the Minimum Volatility portfolio, but also carried higher volatility.
+
+3. **Diversification influences portfolio risk:** The covariance between assets plays an important role in determining overall portfolio volatility.
+
+4. **Optimisation depends on the objective:** The portfolio with the lowest volatility is not necessarily the one with the highest risk-adjusted return.
+
+5. **Monte Carlo simulation enables exploration:** Generating 70,000 candidate portfolios provides a practical way to examine a wide range of possible asset allocations under defined constraints.
+
+---
+
+## Limitations and Assumptions
+
+- The analysis is based on historical market data; past performance does not guarantee future results.
+- The risk-free rate is assumed to be 7%.
+- Annualisation uses 248 trading days per year.
+- Portfolio allocations are constrained to a maximum of 50% per asset.
+- The Monte Carlo simulation explores randomly generated allocations and does not guarantee the global optimum.
+- Transaction costs, taxes, and other investment-related expenses are not incorporated.
+- The results depend on the selected assets and historical observation period.
+
+---
 
 ## Key Output
 
-The Monte Carlo scatter plot visualises thousands of simulated portfolios in risk-return space, with the efficient frontier clearly demarcated. The optimal Sharpe portfolio typically concentrates weight toward low-correlation assets — demonstrating the quantitative case for diversification.
+The primary output is the Monte Carlo simulation scatter plot, which visualises the risk-return characteristics of 70,000 simulated portfolios.
+
+Each point represents a portfolio, with annualised volatility on the x-axis, annualised return on the y-axis, and Sharpe Ratio represented by colour. The Maximum Sharpe and Minimum Volatility portfolios are highlighted to illustrate the two different optimisation objectives.
+
+The accompanying visualisations provide further insights into historical asset performance, portfolio comparisons, and the resulting asset allocations.
+
+---
+
+## Repository Structure
+
+```text
+├── Portfolio_Optimization.ipynb
+└── README.md
+```
