@@ -1,4 +1,4 @@
-# Projects — Divyakumar Kotia
+# Projects - Divyakumar Kotia
 
 Analytics and data science projects spanning financial modelling, NLP, and time series.
 
