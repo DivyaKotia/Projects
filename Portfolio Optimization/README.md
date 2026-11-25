@@ -180,8 +180,6 @@ The accompanying visualisations provide further insights into historical asset p
 
 ## Repository Structure
 
-## Repository Structure
-
 ```text
 Portfolio Optimization/
 │
